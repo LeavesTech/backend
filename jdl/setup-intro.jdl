@@ -1,0 +1,208 @@
+application {
+  config {
+    baseName leavesTechExam
+    applicationType monolith
+    packageName com.example.leavestech
+    prodDatabaseType postgresql
+  }
+}
+
+// ============ BASE ENTITIES (DIAGRAM ONLY) ============
+entity AuditBase {
+  createdAt Instant
+  createdBy String
+  updatedAt Instant
+  updatedBy String
+}
+
+entity SoftDeletableAuditBase {
+  deletedFlag Boolean
+  deletedBy String
+  deletedAt Instant
+}
+
+
+// ============ ENUMS ============
+
+enum UserType {
+  STUDENT,
+  TEACHER,
+  ADMIN
+}
+
+enum PermissionCategory {
+  COURSE_MANAGEMENT,
+  EXAM_MANAGEMENT,
+  QUESTION_BANK_MANAGEMENT,
+  SUBMISSION_REVIEW,
+  USER_ACCOUNT_MANAGEMENT,
+  SYSTEM_ADMINISTRATION
+}
+
+enum EnrollmentStatus {
+  ACTIVE,
+  DROPPED,
+  COMPLETED
+}
+
+enum ExamType {
+  LAB,
+  QUIZ,
+  HOMEWORK,
+  MIDTERM,
+  ADDINTIONAL,
+  FINAL,
+  SUPPLEMENTARY
+}
+
+enum SubmissionStatus {
+  PENDING,
+  PASSED,
+  FAILED
+}
+
+enum ProgrammingLanguage {
+  C,
+  JAVA,
+  PYTHON,
+  CPP,
+  JAVASCRIPT
+}
+
+
+// ============ USER TARAFI ============
+
+entity AuthUser {
+  username String required
+  email String required
+  phoneNumber String
+  firstName String required
+  lastName String required
+  password String required
+  enabled Boolean required
+  userType UserType required
+}
+
+entity Student {
+  studentNumber String required
+}
+
+entity Teacher {
+  title String
+  officeRoom String
+}
+
+entity Department {
+  name String required
+}
+
+
+// ============ RBAC ============
+
+entity Permission {
+  key String required
+  description String
+  category PermissionCategory
+}
+
+entity Role {
+  name String required
+  description String
+}
+
+
+// ============ COURSE / EXAM / QUESTION / SUBMISSION ============
+
+entity Course {
+  code String required
+  name String required
+  term String required
+}
+
+entity CourseEnrollment {
+  status EnrollmentStatus required
+}
+
+entity Exam {
+  title String required
+  startedAt Instant required
+  endAt Instant required
+  durationTime Integer required
+  type ExamType required
+}
+
+entity CodingQuestion {
+  title String required
+  description String required
+  maxScore Integer required
+  starterCode String required
+  language ProgrammingLanguage required
+}
+
+entity Submission {
+  submittedCode String required
+  score Double
+  status SubmissionStatus required
+  submissionDate Instant required
+}
+
+
+// ============ RELATIONSHIPS ============
+
+// AuthUser 1-1 Student
+relationship OneToOne {
+  Student{user} to AuthUser
+}
+
+// AuthUser 1-1 Teacher
+relationship OneToOne {
+  Teacher{user} to AuthUser
+}
+
+// Student - Department (M - 1)
+relationship ManyToOne {
+  Student{department} to Department
+}
+
+// Role - Permission (M2M)
+relationship ManyToMany {
+  Role{permissions} to Permission{roles}
+}
+
+// AuthUser - Role (M2M)
+relationship ManyToMany {
+  AuthUser{roles} to Role{users}
+}
+
+// Course - Teacher (M - 1)
+relationship ManyToOne {
+  Course{owner required} to Teacher
+}
+
+// CourseEnrollment: Course (M - 1), Student (M - 1)
+relationship ManyToOne {
+  CourseEnrollment{course required} to Course
+  CourseEnrollment{student required} to Student
+}
+
+// Exam - Course (M - 1)
+relationship ManyToOne {
+  Exam{course required} to Course
+}
+
+// CodingQuestion - Exam (M2M)
+relationship ManyToMany {
+  Exam{questions} to CodingQuestion{exams}
+}
+
+// Submission ilişkileri
+relationship ManyToOne {
+  Submission{student required} to Student
+  Submission{question required} to CodingQuestion
+  Submission{exam required} to Exam
+}
+
+// Course - Department ilişkisi
+relationship ManyToOne {
+  Course{department} to Department
+}
