@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (permission(); as permissionRef) {
+      <div>
+        <h2 data-cy="permissionDetailsHeading"><span jhiTranslate="leavesTechExamApp.permission.detail.title">Permission</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ permissionRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.permission.key">Key</span></dt>
+          <dd>
+            <span>{{ permissionRef.key }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.permission.description">Description</span></dt>
+          <dd>
+            <span>{{ permissionRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.permission.category">Category</span></dt>
+          <dd>
+            <span [jhiTranslate]="'leavesTechExamApp.PermissionCategory.' + (permissionRef.category ?? 'null')">{{
+              {
+                null: '',
+                COURSE_MANAGEMENT: 'COURSE_MANAGEMENT',
+                EXAM_MANAGEMENT: 'EXAM_MANAGEMENT',
+                QUESTION_BANK_MANAGEMENT: 'QUESTION_BANK_MANAGEMENT',
+                SUBMISSION_REVIEW: 'SUBMISSION_REVIEW',
+                USER_ACCOUNT_MANAGEMENT: 'USER_ACCOUNT_MANAGEMENT',
+                SYSTEM_ADMINISTRATION: 'SYSTEM_ADMINISTRATION',
+              }[permissionRef.category ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.permission.roles">Roles</span></dt>
+          <dd>
+            @for (roles of permissionRef.roles; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/role', roles.id, 'view']">{{ roles?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/permission', permissionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

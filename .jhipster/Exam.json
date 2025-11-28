@@ -1,0 +1,54 @@
+{
+  "annotations": {
+    "changelogDate": "20251128144834"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "startedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "durationTime",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "ExamType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "LAB,QUIZ,HOMEWORK,MIDTERM,ADDINTIONAL,FINAL,SUPPLEMENTARY"
+    }
+  ],
+  "name": "Exam",
+  "relationships": [
+    {
+      "otherEntityName": "course",
+      "relationshipName": "course",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "codingQuestion",
+      "otherEntityRelationshipName": "exams",
+      "relationshipName": "questions",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

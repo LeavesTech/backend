@@ -1,0 +1,10 @@
+{
+  "leavesTechExamApp": {
+    "SubmissionStatus": {
+      "null": "",
+      "PENDING": "PENDING",
+      "PASSED": "PASSED",
+      "FAILED": "FAILED"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "leavesTechExamApp": {
+    "EnrollmentStatus": {
+      "null": "",
+      "ACTIVE": "ACTIVE",
+      "DROPPED": "DROPPED",
+      "COMPLETED": "COMPLETED"
+    }
+  }
+}

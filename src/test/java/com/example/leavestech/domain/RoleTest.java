@@ -1,0 +1,68 @@
+package com.example.leavestech.domain;
+
+import static com.example.leavestech.domain.AuthUserTestSamples.*;
+import static com.example.leavestech.domain.PermissionTestSamples.*;
+import static com.example.leavestech.domain.RoleTestSamples.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.example.leavestech.web.rest.TestUtil;
+import java.util.HashSet;
+import java.util.Set;
+import org.junit.jupiter.api.Test;
+
+class RoleTest {
+
+    @Test
+    void equalsVerifier() throws Exception {
+        TestUtil.equalsVerifier(Role.class);
+        Role role1 = getRoleSample1();
+        Role role2 = new Role();
+        assertThat(role1).isNotEqualTo(role2);
+
+        role2.setId(role1.getId());
+        assertThat(role1).isEqualTo(role2);
+
+        role2 = getRoleSample2();
+        assertThat(role1).isNotEqualTo(role2);
+    }
+
+    @Test
+    void permissionsTest() {
+        Role role = getRoleRandomSampleGenerator();
+        Permission permissionBack = getPermissionRandomSampleGenerator();
+
+        role.addPermissions(permissionBack);
+        assertThat(role.getPermissions()).containsOnly(permissionBack);
+
+        role.removePermissions(permissionBack);
+        assertThat(role.getPermissions()).doesNotContain(permissionBack);
+
+        role.permissions(new HashSet<>(Set.of(permissionBack)));
+        assertThat(role.getPermissions()).containsOnly(permissionBack);
+
+        role.setPermissions(new HashSet<>());
+        assertThat(role.getPermissions()).doesNotContain(permissionBack);
+    }
+
+    @Test
+    void usersTest() {
+        Role role = getRoleRandomSampleGenerator();
+        AuthUser authUserBack = getAuthUserRandomSampleGenerator();
+
+        role.addUsers(authUserBack);
+        assertThat(role.getUsers()).containsOnly(authUserBack);
+        assertThat(authUserBack.getRoles()).containsOnly(role);
+
+        role.removeUsers(authUserBack);
+        assertThat(role.getUsers()).doesNotContain(authUserBack);
+        assertThat(authUserBack.getRoles()).doesNotContain(role);
+
+        role.users(new HashSet<>(Set.of(authUserBack)));
+        assertThat(role.getUsers()).containsOnly(authUserBack);
+        assertThat(authUserBack.getRoles()).containsOnly(role);
+
+        role.setUsers(new HashSet<>());
+        assertThat(role.getUsers()).doesNotContain(authUserBack);
+        assertThat(authUserBack.getRoles()).doesNotContain(role);
+    }
+}

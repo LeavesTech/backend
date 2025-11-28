@@ -1,0 +1,55 @@
+{
+  "annotations": {
+    "changelogDate": "20251128144836"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "submittedCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "SubmissionStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PENDING,PASSED,FAILED"
+    },
+    {
+      "fieldName": "submissionDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Submission",
+  "relationships": [
+    {
+      "otherEntityName": "student",
+      "relationshipName": "student",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "codingQuestion",
+      "relationshipName": "question",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "exam",
+      "relationshipName": "exam",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

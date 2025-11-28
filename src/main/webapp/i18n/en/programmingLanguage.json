@@ -1,0 +1,12 @@
+{
+  "leavesTechExamApp": {
+    "ProgrammingLanguage": {
+      "null": "",
+      "C": "C",
+      "JAVA": "JAVA",
+      "PYTHON": "PYTHON",
+      "CPP": "CPP",
+      "JAVASCRIPT": "JAVASCRIPT"
+    }
+  }
+}

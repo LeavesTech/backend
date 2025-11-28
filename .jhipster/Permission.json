@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20251128144830"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "key",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "PermissionCategory",
+      "fieldValues": "COURSE_MANAGEMENT,EXAM_MANAGEMENT,QUESTION_BANK_MANAGEMENT,SUBMISSION_REVIEW,USER_ACCOUNT_MANAGEMENT,SYSTEM_ADMINISTRATION"
+    }
+  ],
+  "name": "Permission",
+  "relationships": [
+    {
+      "otherEntityName": "role",
+      "otherEntityRelationshipName": "permissions",
+      "relationshipName": "roles",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

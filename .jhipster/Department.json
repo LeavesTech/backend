@@ -1,0 +1,18 @@
+{
+  "annotations": {
+    "changelogDate": "20251128144829"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Department",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

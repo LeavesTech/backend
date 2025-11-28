@@ -1,0 +1,34 @@
+{
+  "leavesTechExamApp": {
+    "authUser": {
+      "home": {
+        "title": "Auth Users",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Auth User",
+        "createOrEditLabel": "Create or edit a Auth User",
+        "notFound": "No Auth Users found"
+      },
+      "created": "A new Auth User is created with identifier {{ param }}",
+      "updated": "A Auth User is updated with identifier {{ param }}",
+      "deleted": "A Auth User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Auth User {{ id }}?"
+      },
+      "detail": {
+        "title": "Auth User"
+      },
+      "id": "ID",
+      "username": "Username",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "password": "Password",
+      "enabled": "Enabled",
+      "userType": "User Type",
+      "roles": "Roles",
+      "student": "Student",
+      "teacher": "Teacher"
+    }
+  }
+}

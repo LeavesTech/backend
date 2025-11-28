@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20251128144828"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "officeRoom",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Teacher",
+  "relationships": [
+    {
+      "otherEntityName": "authUser",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,15 @@
+export enum ExamType {
+  LAB = 'LAB',
+
+  QUIZ = 'QUIZ',
+
+  HOMEWORK = 'HOMEWORK',
+
+  MIDTERM = 'MIDTERM',
+
+  ADDINTIONAL = 'ADDINTIONAL',
+
+  FINAL = 'FINAL',
+
+  SUPPLEMENTARY = 'SUPPLEMENTARY',
+}

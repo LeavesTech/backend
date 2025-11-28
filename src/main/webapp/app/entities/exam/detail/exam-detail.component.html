@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (exam(); as examRef) {
+      <div>
+        <h2 data-cy="examDetailsHeading"><span jhiTranslate="leavesTechExamApp.exam.detail.title">Exam</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ examRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.title">Title</span></dt>
+          <dd>
+            <span>{{ examRef.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.startedAt">Started At</span></dt>
+          <dd>
+            <span>{{ examRef.startedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.endAt">End At</span></dt>
+          <dd>
+            <span>{{ examRef.endAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.durationTime">Duration Time</span></dt>
+          <dd>
+            <span>{{ examRef.durationTime }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.type">Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'leavesTechExamApp.ExamType.' + (examRef.type ?? 'null')">{{
+              {
+                null: '',
+                LAB: 'LAB',
+                QUIZ: 'QUIZ',
+                HOMEWORK: 'HOMEWORK',
+                MIDTERM: 'MIDTERM',
+                ADDINTIONAL: 'ADDINTIONAL',
+                FINAL: 'FINAL',
+                SUPPLEMENTARY: 'SUPPLEMENTARY',
+              }[examRef.type ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.course">Course</span></dt>
+          <dd>
+            @if (exam()!.course) {
+              <div>
+                <a [routerLink]="['/course', exam()!.course?.id, 'view']">{{ examRef.course?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="leavesTechExamApp.exam.questions">Questions</span></dt>
+          <dd>
+            @for (questions of examRef.questions; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/coding-question', questions.id, 'view']">{{ questions?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/exam', examRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

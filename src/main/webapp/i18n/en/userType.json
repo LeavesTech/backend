@@ -1,0 +1,10 @@
+{
+  "leavesTechExamApp": {
+    "UserType": {
+      "null": "",
+      "STUDENT": "STUDENT",
+      "TEACHER": "TEACHER",
+      "ADMIN": "ADMIN"
+    }
+  }
+}

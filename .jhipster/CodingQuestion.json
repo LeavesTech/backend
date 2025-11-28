@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "changelogDate": "20251128144835"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "maxScore",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "starterCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "language",
+      "fieldType": "ProgrammingLanguage",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "C,JAVA,PYTHON,CPP,JAVASCRIPT"
+    }
+  ],
+  "name": "CodingQuestion",
+  "relationships": [
+    {
+      "otherEntityName": "exam",
+      "otherEntityRelationshipName": "questions",
+      "relationshipName": "exams",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

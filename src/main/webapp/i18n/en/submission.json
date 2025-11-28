@@ -1,0 +1,30 @@
+{
+  "leavesTechExamApp": {
+    "submission": {
+      "home": {
+        "title": "Submissions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Submission",
+        "createOrEditLabel": "Create or edit a Submission",
+        "notFound": "No Submissions found"
+      },
+      "created": "A new Submission is created with identifier {{ param }}",
+      "updated": "A Submission is updated with identifier {{ param }}",
+      "deleted": "A Submission is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Submission {{ id }}?"
+      },
+      "detail": {
+        "title": "Submission"
+      },
+      "id": "ID",
+      "submittedCode": "Submitted Code",
+      "score": "Score",
+      "status": "Status",
+      "submissionDate": "Submission Date",
+      "student": "Student",
+      "question": "Question",
+      "exam": "Exam"
+    }
+  }
+}

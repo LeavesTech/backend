@@ -1,0 +1,149 @@
+<div>
+  <h2 id="page-heading" data-cy="SubmissionHeading">
+    <span jhiTranslate="leavesTechExamApp.submission.home.title">Submissions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="leavesTechExamApp.submission.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-submission"
+        [routerLink]="['/submission/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="leavesTechExamApp.submission.home.createLabel">Create a new Submission</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (submissions().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="leavesTechExamApp.submission.home.notFound">No Submissions found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="submittedCode">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.submittedCode">Submitted Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="score">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.score">Score</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="status">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.status">Status</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="submissionDate">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.submissionDate">Submission Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="student.id">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.student">Student</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="question.id">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.question">Question</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="exam.id">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.submission.exam">Exam</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (submission of submissions(); track trackId(submission)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/submission', submission.id, 'view']">{{ submission.id }}</a>
+              </td>
+              <td>{{ submission.submittedCode }}</td>
+              <td>{{ submission.score }}</td>
+              <td [jhiTranslate]="'leavesTechExamApp.SubmissionStatus.' + (submission.status ?? 'null')">
+                {{ { null: '', PENDING: 'PENDING', PASSED: 'PASSED', FAILED: 'FAILED' }[submission.status ?? 'null'] }}
+              </td>
+              <td>{{ submission.submissionDate | formatMediumDatetime }}</td>
+              <td>
+                @if (submission.student) {
+                  <div>
+                    <a [routerLink]="['/student', submission.student.id, 'view']">{{ submission.student.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (submission.question) {
+                  <div>
+                    <a [routerLink]="['/coding-question', submission.question.id, 'view']">{{ submission.question.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (submission.exam) {
+                  <div>
+                    <a [routerLink]="['/exam', submission.exam.id, 'view']">{{ submission.exam.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/submission', submission.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/submission', submission.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(submission)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

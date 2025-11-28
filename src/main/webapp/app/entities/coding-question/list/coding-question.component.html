@@ -1,0 +1,144 @@
+<div>
+  <h2 id="page-heading" data-cy="CodingQuestionHeading">
+    <span jhiTranslate="leavesTechExamApp.codingQuestion.home.title">Coding Questions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="leavesTechExamApp.codingQuestion.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-coding-question"
+        [routerLink]="['/coding-question/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="leavesTechExamApp.codingQuestion.home.createLabel">Create a new Coding Question</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (codingQuestions().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="leavesTechExamApp.codingQuestion.home.notFound">No Coding Questions found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="title">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.codingQuestion.title">Title</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.codingQuestion.description">Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="maxScore">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.codingQuestion.maxScore">Max Score</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="starterCode">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.codingQuestion.starterCode">Starter Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="language">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.codingQuestion.language">Language</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="exams.id">
+              <div class="d-flex">
+                <span jhiTranslate="leavesTechExamApp.codingQuestion.exams">Exams</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (codingQuestion of codingQuestions(); track trackId(codingQuestion)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/coding-question', codingQuestion.id, 'view']">{{ codingQuestion.id }}</a>
+              </td>
+              <td>{{ codingQuestion.title }}</td>
+              <td>{{ codingQuestion.description }}</td>
+              <td>{{ codingQuestion.maxScore }}</td>
+              <td>{{ codingQuestion.starterCode }}</td>
+              <td [jhiTranslate]="'leavesTechExamApp.ProgrammingLanguage.' + (codingQuestion.language ?? 'null')">
+                {{
+                  { null: '', C: 'C', JAVA: 'JAVA', PYTHON: 'PYTHON', CPP: 'CPP', JAVASCRIPT: 'JAVASCRIPT' }[
+                    codingQuestion.language ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>
+                @for (exams of codingQuestion.exams; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/exam', exams.id, 'view']">{{ exams.id }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/coding-question', codingQuestion.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/coding-question', codingQuestion.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(codingQuestion)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

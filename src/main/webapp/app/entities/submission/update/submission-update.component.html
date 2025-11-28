@@ -1,0 +1,187 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-submission-heading"
+        data-cy="SubmissionCreateUpdateHeading"
+        jhiTranslate="leavesTechExamApp.submission.home.createOrEditLabel"
+      >
+        Create or edit a Submission
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="leavesTechExamApp.submission.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let submittedCodeRef = editForm.get('submittedCode')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_submittedCode" jhiTranslate="leavesTechExamApp.submission.submittedCode"
+            >Submitted Code</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="submittedCode"
+            id="field_submittedCode"
+            data-cy="submittedCode"
+            formControlName="submittedCode"
+          />
+          @if (submittedCodeRef.invalid && (submittedCodeRef.dirty || submittedCodeRef.touched)) {
+            <div>
+              @if (editForm.get('submittedCode')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_score" jhiTranslate="leavesTechExamApp.submission.score">Score</label>
+          <input type="number" class="form-control" name="score" id="field_score" data-cy="score" formControlName="score" />
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="leavesTechExamApp.submission.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'leavesTechExamApp.SubmissionStatus.null' | translate }}</option>
+            @for (submissionStatus of submissionStatusValues; track $index) {
+              <option [value]="submissionStatus">{{ 'leavesTechExamApp.SubmissionStatus.' + submissionStatus | translate }}</option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let submissionDateRef = editForm.get('submissionDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_submissionDate" jhiTranslate="leavesTechExamApp.submission.submissionDate"
+            >Submission Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_submissionDate"
+              data-cy="submissionDate"
+              type="datetime-local"
+              class="form-control"
+              name="submissionDate"
+              formControlName="submissionDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (submissionDateRef.invalid && (submissionDateRef.dirty || submissionDateRef.touched)) {
+            <div>
+              @if (editForm.get('submissionDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('submissionDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >This field should be a date and time.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_student" jhiTranslate="leavesTechExamApp.submission.student">Student</label>
+          <select
+            class="form-control"
+            id="field_student"
+            data-cy="student"
+            name="student"
+            formControlName="student"
+            [compareWith]="compareStudent"
+          >
+            @if (!editForm.get('student')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (studentOption of studentsSharedCollection; track $index) {
+              <option [ngValue]="studentOption">{{ studentOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['student'])!.invalid && (editForm.get(['student'])!.dirty || editForm.get(['student'])!.touched)) {
+          <div>
+            @if (editForm.get(['student'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_question" jhiTranslate="leavesTechExamApp.submission.question">Question</label>
+          <select
+            class="form-control"
+            id="field_question"
+            data-cy="question"
+            name="question"
+            formControlName="question"
+            [compareWith]="compareCodingQuestion"
+          >
+            @if (!editForm.get('question')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (codingQuestionOption of codingQuestionsSharedCollection; track $index) {
+              <option [ngValue]="codingQuestionOption">{{ codingQuestionOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['question'])!.invalid && (editForm.get(['question'])!.dirty || editForm.get(['question'])!.touched)) {
+          <div>
+            @if (editForm.get(['question'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_exam" jhiTranslate="leavesTechExamApp.submission.exam">Exam</label>
+          <select class="form-control" id="field_exam" data-cy="exam" name="exam" formControlName="exam" [compareWith]="compareExam">
+            @if (!editForm.get('exam')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (examOption of examsSharedCollection; track $index) {
+              <option [ngValue]="examOption">{{ examOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['exam'])!.invalid && (editForm.get(['exam'])!.dirty || editForm.get(['exam'])!.touched)) {
+          <div>
+            @if (editForm.get(['exam'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
