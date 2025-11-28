@@ -3,12 +3,26 @@
     "applicationType": "monolith",
     "baseName": "leavesTechExam",
     "creationTimestamp": 1764340333375,
-    "entities": [],
+    "entities": [
+      "AuthUser",
+      "Student",
+      "Teacher",
+      "Department",
+      "Permission",
+      "Role",
+      "Course",
+      "CourseEnrollment",
+      "Exam",
+      "CodingQuestion",
+      "Submission"
+    ],
     "jhipsterVersion": "8.11.0",
     "jwtSecretKey": "OTNhZDA1OGNhOWMzZjcwOTg4YmNjOTZkZmQ0OTk5ODM4YzQ0YTE3ZDRjYTM3NmE5MmQ2ZTQ0OTUzYzhmYTFmYTU1NGNlYWYzNzZiZTdhNDg5YjBjZmE2MGRhNGViODc0NTNkNDIwNDllOTk1NDRmZWMyNTZjMjNlYzQwNmNkNjc=",
     "languages": ["en"],
+    "lastLiquibaseTimestamp": 1764341316000,
     "nativeLanguage": "en",
     "packageName": "com.example.leavestech",
-    "prodDatabaseType": "postgresql"
+    "prodDatabaseType": "postgresql",
+    "skipUserManagement": true
   }
 }

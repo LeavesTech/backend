@@ -8,7 +8,17 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "authUser": "Auth User",
+        "student": "Student",
+        "teacher": "Teacher",
+        "department": "Department",
+        "permission": "Permission",
+        "role": "Role",
+        "course": "Course",
+        "courseEnrollment": "Course Enrollment",
+        "exam": "Exam",
+        "codingQuestion": "Coding Question",
+        "submission": "Submission"
       },
       "account": {
         "main": "Account",

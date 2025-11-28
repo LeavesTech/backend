@@ -2,9 +2,7 @@ package com.example.leavestech.web.rest;
 
 import static com.example.leavestech.security.SecurityUtils.AUTHORITIES_CLAIM;
 import static com.example.leavestech.security.SecurityUtils.JWT_ALGORITHM;
-import static com.example.leavestech.security.SecurityUtils.USER_ID_CLAIM;
 
-import com.example.leavestech.security.DomainUserDetailsService.UserWithId;
 import com.example.leavestech.web.rest.vm.LoginVM;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
@@ -97,9 +95,6 @@ public class AuthenticateController {
             .expiresAt(validity)
             .subject(authentication.getName())
             .claim(AUTHORITIES_CLAIM, authorities);
-        if (authentication.getPrincipal() instanceof UserWithId user) {
-            builder.claim(USER_ID_CLAIM, user.getId());
-        }
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, builder.build())).getTokenValue();

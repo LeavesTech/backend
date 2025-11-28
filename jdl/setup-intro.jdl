@@ -4,24 +4,11 @@ application {
     applicationType monolith
     packageName com.example.leavestech
     prodDatabaseType postgresql
+    skipUserManagement true
+
   }
+  entities *
 }
-
-// ============ BASE ENTITIES (DIAGRAM ONLY) ============
-entity AuditBase {
-  createdAt Instant
-  createdBy String
-  updatedAt Instant
-  updatedBy String
-}
-
-entity SoftDeletableAuditBase {
-  deletedFlag Boolean
-  deletedBy String
-  deletedAt Instant
-}
-
-
 // ============ ENUMS ============
 
 enum UserType {
@@ -206,3 +193,8 @@ relationship ManyToOne {
 relationship ManyToOne {
   Course{department} to Department
 }
+
+
+dto * with mapstruct
+service * with serviceClass
+
