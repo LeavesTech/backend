@@ -50,6 +50,21 @@ public class CacheConfiguration {
             createCache(cm, com.example.leavestech.domain.User.class.getName());
             createCache(cm, com.example.leavestech.domain.Authority.class.getName());
             createCache(cm, com.example.leavestech.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.example.leavestech.domain.Student.class.getName());
+            createCache(cm, com.example.leavestech.domain.Teacher.class.getName());
+            createCache(cm, com.example.leavestech.domain.Department.class.getName());
+            createCache(cm, com.example.leavestech.domain.Permission.class.getName());
+            createCache(cm, com.example.leavestech.domain.Permission.class.getName() + ".roles");
+            createCache(cm, com.example.leavestech.domain.Role.class.getName());
+            createCache(cm, com.example.leavestech.domain.Role.class.getName() + ".permissions");
+            createCache(cm, com.example.leavestech.domain.Role.class.getName() + ".users");
+            createCache(cm, com.example.leavestech.domain.Course.class.getName());
+            createCache(cm, com.example.leavestech.domain.CourseEnrollment.class.getName());
+            createCache(cm, com.example.leavestech.domain.Exam.class.getName());
+            createCache(cm, com.example.leavestech.domain.Exam.class.getName() + ".questions");
+            createCache(cm, com.example.leavestech.domain.CodingQuestion.class.getName());
+            createCache(cm, com.example.leavestech.domain.CodingQuestion.class.getName() + ".exams");
+            createCache(cm, com.example.leavestech.domain.Submission.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
