@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20251129080117"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Role",
+  "relationships": [
+    {
+      "otherEntityName": "permission",
+      "otherEntityRelationshipName": "roles",
+      "relationshipName": "permissions",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "roles",
+      "relationshipName": "users",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many",
+      "relationshipWithBuiltInEntity": true
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20251129075717"
+  },
+  "applications": ["leavesTechExam"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "studentNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Student",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "department",
+      "relationshipName": "department",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
