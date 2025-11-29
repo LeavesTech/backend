@@ -1,6 +1,6 @@
 {
   "annotations": {
-    "changelogDate": "20251128144836"
+    "changelogDate": "20251129072701"
   },
   "applications": ["leavesTechExam"],
   "dto": "mapstruct",

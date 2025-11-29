@@ -2,9 +2,9 @@
   "generator-jhipster": {
     "applicationType": "monolith",
     "baseName": "leavesTechExam",
-    "creationTimestamp": 1764340333375,
+    "clientFramework": "no",
+    "devDatabaseType": "postgresql",
     "entities": [
-      "AuthUser",
       "Student",
       "Teacher",
       "Department",
@@ -17,12 +17,13 @@
       "Submission"
     ],
     "jhipsterVersion": "8.11.0",
-    "jwtSecretKey": "OTNhZDA1OGNhOWMzZjcwOTg4YmNjOTZkZmQ0OTk5ODM4YzQ0YTE3ZDRjYTM3NmE5MmQ2ZTQ0OTUzYzhmYTFmYTU1NGNlYWYzNzZiZTdhNDg5YjBjZmE2MGRhNGViODc0NTNkNDIwNDllOTk1NDRmZWMyNTZjMjNlYzQwNmNkNjc=",
+    "jwtSecretKey": "OTk0YTg5Y2RkYTkxNDIxZTdjYjliODQzZWViNTVkYzdkMjMwYjhjZWQ5MGJkOTY2ZGY0ZjVkMGZlZTBiZDNlM2RkMmIzYjZkODNmNDgxN2VmNzcwMWY1ODgyZDU3YTFjNTUyNTI3OTc5NDM4Y2NkZjQxNDc1MjI0NjBjY2I2Nzc=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1764341316000,
+    "lastLiquibaseTimestamp": 1764401221000,
     "nativeLanguage": "en",
     "packageName": "com.example.leavestech",
     "prodDatabaseType": "postgresql",
-    "skipUserManagement": true
+    "serverPort": "8080",
+    "skipClient": true
   }
 }

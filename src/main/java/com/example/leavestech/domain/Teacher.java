@@ -1,13 +1,9 @@
 package com.example.leavestech.domain;
 
-import com.example.leavestech.domain.audit.AbstractSoftDeleteAuditingEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 /**
  * A Teacher.
@@ -16,9 +12,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "teacher")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-@SQLDelete(sql = "UPDATE teacher SET deleted = true , deleted_at = now() WHERE id = ?")
-@SQLRestriction("deleted = false")
-public class Teacher extends AbstractSoftDeleteAuditingEntity implements Serializable {
+public class Teacher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,10 +28,9 @@ public class Teacher extends AbstractSoftDeleteAuditingEntity implements Seriali
     @Column(name = "office_room")
     private String officeRoom;
 
-    @JsonIgnoreProperties(value = { "roles", "student", "teacher" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
-    private AuthUser user;
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -80,16 +73,16 @@ public class Teacher extends AbstractSoftDeleteAuditingEntity implements Seriali
         this.officeRoom = officeRoom;
     }
 
-    public AuthUser getUser() {
+    public User getUser() {
         return this.user;
     }
 
-    public void setUser(AuthUser authUser) {
-        this.user = authUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Teacher user(AuthUser authUser) {
-        this.setUser(authUser);
+    public Teacher user(User user) {
+        this.setUser(user);
         return this;
     }
 

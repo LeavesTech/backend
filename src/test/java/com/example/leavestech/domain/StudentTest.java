@@ -1,6 +1,5 @@
 package com.example.leavestech.domain;
 
-import static com.example.leavestech.domain.AuthUserTestSamples.*;
 import static com.example.leavestech.domain.DepartmentTestSamples.*;
 import static com.example.leavestech.domain.StudentTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,18 +21,6 @@ class StudentTest {
 
         student2 = getStudentSample2();
         assertThat(student1).isNotEqualTo(student2);
-    }
-
-    @Test
-    void userTest() {
-        Student student = getStudentRandomSampleGenerator();
-        AuthUser authUserBack = getAuthUserRandomSampleGenerator();
-
-        student.setUser(authUserBack);
-        assertThat(student.getUser()).isEqualTo(authUserBack);
-
-        student.user(null);
-        assertThat(student.getUser()).isNull();
     }
 
     @Test

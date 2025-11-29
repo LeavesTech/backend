@@ -24,7 +24,7 @@ public class RoleRepositoryWithBagRelationshipsImpl implements RoleRepositoryWit
 
     @Override
     public Optional<Role> fetchBagRelationships(Optional<Role> role) {
-        return role.map(this::fetchPermissions);
+        return role.map(this::fetchPermissions).map(this::fetchUsers);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RoleRepositoryWithBagRelationshipsImpl implements RoleRepositoryWit
 
     @Override
     public List<Role> fetchBagRelationships(List<Role> roles) {
-        return Optional.of(roles).map(this::fetchPermissions).orElse(Collections.emptyList());
+        return Optional.of(roles).map(this::fetchPermissions).map(this::fetchUsers).orElse(Collections.emptyList());
     }
 
     Role fetchPermissions(Role result) {
@@ -49,6 +49,24 @@ public class RoleRepositoryWithBagRelationshipsImpl implements RoleRepositoryWit
         IntStream.range(0, roles.size()).forEach(index -> order.put(roles.get(index).getId(), index));
         List<Role> result = entityManager
             .createQuery("select role from Role role left join fetch role.permissions where role in :roles", Role.class)
+            .setParameter(ROLES_PARAMETER, roles)
+            .getResultList();
+        Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));
+        return result;
+    }
+
+    Role fetchUsers(Role result) {
+        return entityManager
+            .createQuery("select role from Role role left join fetch role.users where role.id = :id", Role.class)
+            .setParameter(ID_PARAMETER, result.getId())
+            .getSingleResult();
+    }
+
+    List<Role> fetchUsers(List<Role> roles) {
+        HashMap<Object, Integer> order = new HashMap<>();
+        IntStream.range(0, roles.size()).forEach(index -> order.put(roles.get(index).getId(), index));
+        List<Role> result = entityManager
+            .createQuery("select role from Role role left join fetch role.users where role in :roles", Role.class)
             .setParameter(ROLES_PARAMETER, roles)
             .getResultList();
         Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));

@@ -45,8 +45,11 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, com.example.leavestech.domain.AuthUser.class.getName());
-            createCache(cm, com.example.leavestech.domain.AuthUser.class.getName() + ".roles");
+            createCache(cm, com.example.leavestech.repository.UserRepository.USERS_BY_LOGIN_CACHE);
+            createCache(cm, com.example.leavestech.repository.UserRepository.USERS_BY_EMAIL_CACHE);
+            createCache(cm, com.example.leavestech.domain.User.class.getName());
+            createCache(cm, com.example.leavestech.domain.Authority.class.getName());
+            createCache(cm, com.example.leavestech.domain.User.class.getName() + ".authorities");
             createCache(cm, com.example.leavestech.domain.Student.class.getName());
             createCache(cm, com.example.leavestech.domain.Teacher.class.getName());
             createCache(cm, com.example.leavestech.domain.Department.class.getName());

@@ -1,6 +1,5 @@
 package com.example.leavestech.domain;
 
-import com.example.leavestech.domain.audit.AbstractSoftDeleteAuditingEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -9,8 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 /**
  * A Role.
@@ -19,9 +16,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "role")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-@SQLDelete(sql = "UPDATE role SET deleted = true , deleted_at = now() WHERE id = ?")
-@SQLRestriction("deleted = false")
-public class Role extends AbstractSoftDeleteAuditingEntity implements Serializable {
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,10 +43,10 @@ public class Role extends AbstractSoftDeleteAuditingEntity implements Serializab
     @JsonIgnoreProperties(value = { "roles" }, allowSetters = true)
     private Set<Permission> permissions = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "rel_role__users", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "users_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "roles", "student", "teacher" }, allowSetters = true)
-    private Set<AuthUser> users = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -117,34 +112,26 @@ public class Role extends AbstractSoftDeleteAuditingEntity implements Serializab
         return this;
     }
 
-    public Set<AuthUser> getUsers() {
+    public Set<User> getUsers() {
         return this.users;
     }
 
-    public void setUsers(Set<AuthUser> authUsers) {
-        if (this.users != null) {
-            this.users.forEach(i -> i.removeRoles(this));
-        }
-        if (authUsers != null) {
-            authUsers.forEach(i -> i.addRoles(this));
-        }
-        this.users = authUsers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
-    public Role users(Set<AuthUser> authUsers) {
-        this.setUsers(authUsers);
+    public Role users(Set<User> users) {
+        this.setUsers(users);
         return this;
     }
 
-    public Role addUsers(AuthUser authUser) {
-        this.users.add(authUser);
-        authUser.getRoles().add(this);
+    public Role addUsers(User user) {
+        this.users.add(user);
         return this;
     }
 
-    public Role removeUsers(AuthUser authUser) {
-        this.users.remove(authUser);
-        authUser.getRoles().remove(this);
+    public Role removeUsers(User user) {
+        this.users.remove(user);
         return this;
     }
 

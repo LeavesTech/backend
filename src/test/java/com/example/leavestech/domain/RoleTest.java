@@ -1,6 +1,5 @@
 package com.example.leavestech.domain;
 
-import static com.example.leavestech.domain.AuthUserTestSamples.*;
 import static com.example.leavestech.domain.PermissionTestSamples.*;
 import static com.example.leavestech.domain.RoleTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,27 +41,5 @@ class RoleTest {
 
         role.setPermissions(new HashSet<>());
         assertThat(role.getPermissions()).doesNotContain(permissionBack);
-    }
-
-    @Test
-    void usersTest() {
-        Role role = getRoleRandomSampleGenerator();
-        AuthUser authUserBack = getAuthUserRandomSampleGenerator();
-
-        role.addUsers(authUserBack);
-        assertThat(role.getUsers()).containsOnly(authUserBack);
-        assertThat(authUserBack.getRoles()).containsOnly(role);
-
-        role.removeUsers(authUserBack);
-        assertThat(role.getUsers()).doesNotContain(authUserBack);
-        assertThat(authUserBack.getRoles()).doesNotContain(role);
-
-        role.users(new HashSet<>(Set.of(authUserBack)));
-        assertThat(role.getUsers()).containsOnly(authUserBack);
-        assertThat(authUserBack.getRoles()).containsOnly(role);
-
-        role.setUsers(new HashSet<>());
-        assertThat(role.getUsers()).doesNotContain(authUserBack);
-        assertThat(authUserBack.getRoles()).doesNotContain(role);
     }
 }

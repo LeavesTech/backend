@@ -21,7 +21,7 @@ public class RoleDTO implements Serializable {
 
     private Set<PermissionDTO> permissions = new HashSet<>();
 
-    private Set<AuthUserDTO> users = new HashSet<>();
+    private Set<UserDTO> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -55,11 +55,11 @@ public class RoleDTO implements Serializable {
         this.permissions = permissions;
     }
 
-    public Set<AuthUserDTO> getUsers() {
+    public Set<UserDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<AuthUserDTO> users) {
+    public void setUsers(Set<UserDTO> users) {
         this.users = users;
     }
 

@@ -60,7 +60,6 @@ public class RoleAsserts {
     public static void assertRoleUpdatableRelationshipsEquals(Role expected, Role actual) {
         assertThat(actual)
             .as("Verify Role relationships")
-            .satisfies(a -> assertThat(a.getPermissions()).as("check permissions").isEqualTo(expected.getPermissions()))
-            .satisfies(a -> assertThat(a.getUsers()).as("check users").isEqualTo(expected.getUsers()));
+            .satisfies(a -> assertThat(a.getPermissions()).as("check permissions").isEqualTo(expected.getPermissions()));
     }
 }

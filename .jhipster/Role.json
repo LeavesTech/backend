@@ -1,6 +1,6 @@
 {
   "annotations": {
-    "changelogDate": "20251128144831"
+    "changelogDate": "20251129072201"
   },
   "applications": ["leavesTechExam"],
   "dto": "mapstruct",
@@ -25,11 +25,12 @@
       "relationshipType": "many-to-many"
     },
     {
-      "otherEntityName": "authUser",
+      "otherEntityName": "user",
       "otherEntityRelationshipName": "roles",
       "relationshipName": "users",
-      "relationshipSide": "right",
-      "relationshipType": "many-to-many"
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many",
+      "relationshipWithBuiltInEntity": true
     }
   ],
   "searchEngine": "no",

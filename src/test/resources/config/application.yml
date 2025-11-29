@@ -29,11 +29,6 @@ spring:
   messages:
     basename: i18n/messages
   security:
-    user:
-      name: test
-      password: test
-      roles:
-        - USER
     oauth2:
       resourceserver:
         jwt:
@@ -80,7 +75,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: OTNhZDA1OGNhOWMzZjcwOTg4YmNjOTZkZmQ0OTk5ODM4YzQ0YTE3ZDRjYTM3NmE5MmQ2ZTQ0OTUzYzhmYTFmYTU1NGNlYWYzNzZiZTdhNDg5YjBjZmE2MGRhNGViODc0NTNkNDIwNDllOTk1NDRmZWMyNTZjMjNlYzQwNmNkNjc=
+        base64-secret: OTk0YTg5Y2RkYTkxNDIxZTdjYjliODQzZWViNTVkYzdkMjMwYjhjZWQ5MGJkOTY2ZGY0ZjVkMGZlZTBiZDNlM2RkMmIzYjZkODNmNDgxN2VmNzcwMWY1ODgyZDU3YTFjNTUyNTI3OTc5NDM4Y2NkZjQxNDc1MjI0NjBjY2I2Nzc=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 86400

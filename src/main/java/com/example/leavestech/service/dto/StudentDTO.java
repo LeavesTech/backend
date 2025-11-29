@@ -15,7 +15,7 @@ public class StudentDTO implements Serializable {
     @NotNull
     private String studentNumber;
 
-    private AuthUserDTO user;
+    private UserDTO user;
 
     private DepartmentDTO department;
 
@@ -35,11 +35,11 @@ public class StudentDTO implements Serializable {
         this.studentNumber = studentNumber;
     }
 
-    public AuthUserDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(AuthUserDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

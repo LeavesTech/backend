@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.leavestech.IntegrationTest;
 import com.example.leavestech.domain.Role;
 import com.example.leavestech.repository.RoleRepository;
+import com.example.leavestech.repository.UserRepository;
 import com.example.leavestech.service.RoleService;
 import com.example.leavestech.service.dto.RoleDTO;
 import com.example.leavestech.service.mapper.RoleMapper;
@@ -60,6 +61,9 @@ class RoleResourceIT {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Mock
     private RoleRepository roleRepositoryMock;
@@ -322,7 +326,7 @@ class RoleResourceIT {
         Role partialUpdatedRole = new Role();
         partialUpdatedRole.setId(role.getId());
 
-        partialUpdatedRole.name(UPDATED_NAME);
+        partialUpdatedRole.description(UPDATED_DESCRIPTION);
 
         restRoleMockMvc
             .perform(

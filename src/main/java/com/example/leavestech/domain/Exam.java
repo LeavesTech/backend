@@ -1,6 +1,5 @@
 package com.example.leavestech.domain;
 
-import com.example.leavestech.domain.audit.AbstractSoftDeleteAuditingEntity;
 import com.example.leavestech.domain.enumeration.ExamType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -11,8 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 /**
  * A Exam.
@@ -21,9 +18,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "exam")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-@SQLDelete(sql = "UPDATE exam SET deleted = true , deleted_at = now() WHERE id = ?")
-@SQLRestriction("deleted = false")
-public class Exam extends AbstractSoftDeleteAuditingEntity implements Serializable {
+public class Exam implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

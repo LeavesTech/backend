@@ -1,6 +1,5 @@
 package com.example.leavestech.domain;
 
-import com.example.leavestech.domain.audit.AbstractSoftDeleteAuditingEntity;
 import com.example.leavestech.domain.enumeration.PermissionCategory;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -10,8 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 /**
  * A Permission.
@@ -20,9 +17,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "permission")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-@SQLDelete(sql = "UPDATE permission SET deleted = true , deleted_at = now() WHERE id = ?")
-@SQLRestriction("deleted = false")
-public class Permission extends AbstractSoftDeleteAuditingEntity implements Serializable {
+public class Permission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

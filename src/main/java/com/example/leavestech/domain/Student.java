@@ -1,14 +1,10 @@
 package com.example.leavestech.domain;
 
-import com.example.leavestech.domain.audit.AbstractSoftDeleteAuditingEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 /**
  * A Student.
@@ -17,9 +13,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "student")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-@SQLDelete(sql = "UPDATE student SET deleted = true , deleted_at = now() WHERE id = ?")
-@SQLRestriction("deleted = false")
-public class Student extends AbstractSoftDeleteAuditingEntity implements Serializable {
+public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,10 +27,9 @@ public class Student extends AbstractSoftDeleteAuditingEntity implements Seriali
     @Column(name = "student_number", nullable = false)
     private String studentNumber;
 
-    @JsonIgnoreProperties(value = { "roles", "student", "teacher" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
-    private AuthUser user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
@@ -69,16 +62,16 @@ public class Student extends AbstractSoftDeleteAuditingEntity implements Seriali
         this.studentNumber = studentNumber;
     }
 
-    public AuthUser getUser() {
+    public User getUser() {
         return this.user;
     }
 
-    public void setUser(AuthUser authUser) {
-        this.user = authUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Student user(AuthUser authUser) {
-        this.setUser(authUser);
+    public Student user(User user) {
+        this.setUser(user);
         return this;
     }
 

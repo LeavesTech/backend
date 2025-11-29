@@ -1,9 +1,9 @@
 package com.example.leavestech.service.mapper;
 
-import com.example.leavestech.domain.AuthUser;
 import com.example.leavestech.domain.Teacher;
-import com.example.leavestech.service.dto.AuthUserDTO;
+import com.example.leavestech.domain.User;
 import com.example.leavestech.service.dto.TeacherDTO;
+import com.example.leavestech.service.dto.UserDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,11 +11,11 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface TeacherMapper extends EntityMapper<TeacherDTO, Teacher> {
-    @Mapping(target = "user", source = "user", qualifiedByName = "authUserId")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
     TeacherDTO toDto(Teacher s);
 
-    @Named("authUserId")
+    @Named("userId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    AuthUserDTO toDtoAuthUserId(AuthUser authUser);
+    UserDTO toDtoUserId(User user);
 }

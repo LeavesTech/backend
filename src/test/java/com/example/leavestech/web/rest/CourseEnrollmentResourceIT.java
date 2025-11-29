@@ -338,8 +338,6 @@ class CourseEnrollmentResourceIT {
         CourseEnrollment partialUpdatedCourseEnrollment = new CourseEnrollment();
         partialUpdatedCourseEnrollment.setId(courseEnrollment.getId());
 
-        partialUpdatedCourseEnrollment.status(UPDATED_STATUS);
-
         restCourseEnrollmentMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCourseEnrollment.getId())

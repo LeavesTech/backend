@@ -1,14 +1,16 @@
 application {
   config {
     baseName leavesTechExam
+    clientFramework no
     applicationType monolith
     packageName com.example.leavestech
     prodDatabaseType postgresql
-    skipUserManagement true
-
+    devDatabaseType postgresql
+    serverPort 8080
   }
   entities *
 }
+
 // ============ ENUMS ============
 
 enum UserType {
@@ -58,17 +60,6 @@ enum ProgrammingLanguage {
 
 
 // ============ USER TARAFI ============
-
-entity AuthUser {
-  username String required
-  email String required
-  phoneNumber String
-  firstName String required
-  lastName String required
-  password String required
-  enabled Boolean required
-  userType UserType required
-}
 
 entity Student {
   studentNumber String required
@@ -137,13 +128,15 @@ entity Submission {
 // ============ RELATIONSHIPS ============
 
 // AuthUser 1-1 Student
+// DÜZELTME: with builtInEntity eklendi
 relationship OneToOne {
-  Student{user} to AuthUser
+  Student{user} to User with builtInEntity
 }
 
 // AuthUser 1-1 Teacher
+// DÜZELTME: with builtInEntity eklendi
 relationship OneToOne {
-  Teacher{user} to AuthUser
+  Teacher{user} to User with builtInEntity
 }
 
 // Student - Department (M - 1)
@@ -157,8 +150,11 @@ relationship ManyToMany {
 }
 
 // AuthUser - Role (M2M)
+// DÜZELTME: built-in User ile custom Role ilişkisi.
+// Not: JHipster'ın kendi Authority yapısı vardır, bu custom Role ile çakışmaz ama
+// User tablosuna dokunmak yerine Role üzerinden ilişki kurmak daha temizdir.
 relationship ManyToMany {
-  AuthUser{roles} to Role{users}
+  Role{users} to User{roles} with builtInEntity
 }
 
 // Course - Teacher (M - 1)
@@ -197,4 +193,3 @@ relationship ManyToOne {
 
 dto * with mapstruct
 service * with serviceClass
-

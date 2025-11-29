@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.leavestech.IntegrationTest;
 import com.example.leavestech.domain.Teacher;
 import com.example.leavestech.repository.TeacherRepository;
+import com.example.leavestech.repository.UserRepository;
 import com.example.leavestech.service.dto.TeacherDTO;
 import com.example.leavestech.service.mapper.TeacherMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,6 +52,9 @@ class TeacherResourceIT {
 
     @Autowired
     private TeacherRepository teacherRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TeacherMapper teacherMapper;
@@ -277,7 +281,7 @@ class TeacherResourceIT {
         Teacher partialUpdatedTeacher = new Teacher();
         partialUpdatedTeacher.setId(teacher.getId());
 
-        partialUpdatedTeacher.title(UPDATED_TITLE).officeRoom(UPDATED_OFFICE_ROOM);
+        partialUpdatedTeacher.officeRoom(UPDATED_OFFICE_ROOM);
 
         restTeacherMockMvc
             .perform(

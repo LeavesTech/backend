@@ -1,11 +1,11 @@
 package com.example.leavestech.service.mapper;
 
-import com.example.leavestech.domain.AuthUser;
 import com.example.leavestech.domain.Permission;
 import com.example.leavestech.domain.Role;
-import com.example.leavestech.service.dto.AuthUserDTO;
+import com.example.leavestech.domain.User;
 import com.example.leavestech.service.dto.PermissionDTO;
 import com.example.leavestech.service.dto.RoleDTO;
+import com.example.leavestech.service.dto.UserDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.*;
@@ -16,11 +16,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface RoleMapper extends EntityMapper<RoleDTO, Role> {
     @Mapping(target = "permissions", source = "permissions", qualifiedByName = "permissionIdSet")
-    @Mapping(target = "users", source = "users", qualifiedByName = "authUserIdSet")
+    @Mapping(target = "users", source = "users", qualifiedByName = "userIdSet")
     RoleDTO toDto(Role s);
 
     @Mapping(target = "removePermissions", ignore = true)
-    @Mapping(target = "users", ignore = true)
     @Mapping(target = "removeUsers", ignore = true)
     Role toEntity(RoleDTO roleDTO);
 
@@ -34,13 +33,13 @@ public interface RoleMapper extends EntityMapper<RoleDTO, Role> {
         return permission.stream().map(this::toDtoPermissionId).collect(Collectors.toSet());
     }
 
-    @Named("authUserId")
+    @Named("userId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    AuthUserDTO toDtoAuthUserId(AuthUser authUser);
+    UserDTO toDtoUserId(User user);
 
-    @Named("authUserIdSet")
-    default Set<AuthUserDTO> toDtoAuthUserIdSet(Set<AuthUser> authUser) {
-        return authUser.stream().map(this::toDtoAuthUserId).collect(Collectors.toSet());
+    @Named("userIdSet")
+    default Set<UserDTO> toDtoUserIdSet(Set<User> user) {
+        return user.stream().map(this::toDtoUserId).collect(Collectors.toSet());
     }
 }

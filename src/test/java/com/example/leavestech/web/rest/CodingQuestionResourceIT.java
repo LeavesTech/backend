@@ -397,11 +397,7 @@ class CodingQuestionResourceIT {
         CodingQuestion partialUpdatedCodingQuestion = new CodingQuestion();
         partialUpdatedCodingQuestion.setId(codingQuestion.getId());
 
-        partialUpdatedCodingQuestion
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .starterCode(UPDATED_STARTER_CODE)
-            .language(UPDATED_LANGUAGE);
+        partialUpdatedCodingQuestion.title(UPDATED_TITLE).starterCode(UPDATED_STARTER_CODE).language(UPDATED_LANGUAGE);
 
         restCodingQuestionMockMvc
             .perform(

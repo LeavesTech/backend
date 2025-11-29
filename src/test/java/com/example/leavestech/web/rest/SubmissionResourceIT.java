@@ -422,7 +422,7 @@ class SubmissionResourceIT {
         Submission partialUpdatedSubmission = new Submission();
         partialUpdatedSubmission.setId(submission.getId());
 
-        partialUpdatedSubmission.submittedCode(UPDATED_SUBMITTED_CODE).status(UPDATED_STATUS);
+        partialUpdatedSubmission.submissionDate(UPDATED_SUBMISSION_DATE);
 
         restSubmissionMockMvc
             .perform(
